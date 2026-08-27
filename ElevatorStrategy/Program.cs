@@ -10,12 +10,12 @@ int[] cabinButtons = { 7, 9, 8 };
 int secondsPerFloor = 1;
 int secondsPerStop = 2;
 
-var elevator = new Elevator(startingFloor);
+var elevator = new Elevator(startingFloor, hallButtons, cabinButtons);
 
 FloorPlanningStrategy floorPlanningStrategy = new FloorPlanningStrategy(secondsPerFloor, secondsPerStop);
 
-FloorPlanResult result = floorPlanningStrategy.CreatePlan(elevator.CurrentFloor, Direction.Up, hallButtons, cabinButtons);
+FloorPlanResult result = floorPlanningStrategy.CreatePlan(elevator.CurrentFloor, Direction.Up, elevator.HallButtons, elevator.CabinButtons);
 
-//elevator.ReceivePlan(result);
+elevator.ReceivePlan(result);
 
 

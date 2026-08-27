@@ -11,7 +11,5 @@ namespace ElevatorStrategy
         public int TotalPassengerWaitingTime { get; init; }
         public double AveragePassengerWaitingTime { get; init; }
         public int DirectionChanges { get; init; }
-        public IReadOnlyDictionary<int, int> WaitingTimeByFloor { get; init; }
-            = new Dictionary<int, int>();
     }
 }
