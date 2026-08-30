@@ -7,8 +7,8 @@ namespace ElevatorStrategy
 {
     public class FloorPlanningStrategy
     {
-        private readonly int SecondsPerFloor;
-        private readonly int SecondsPerStop;
+        public int SecondsPerFloor { get; }
+        public int SecondsPerStop { get; }  
 
         public FloorPlanningStrategy(int secondsPerFloor, int secondsPerStop)
         {
@@ -16,14 +16,10 @@ namespace ElevatorStrategy
             SecondsPerStop = secondsPerStop;
         }
         public FloorPlanResult CreatePlan(int currentFloor, Direction initialDirection, IEnumerable<int> hallButtons, IEnumerable<int> cabinButtons)
-        {      
+        {
             int[] totalStops = GetTotalStops(currentFloor, initialDirection, hallButtons, cabinButtons);
 
-            //List<int> completeFloorPlan = new List<int> { currentFloor };
-            //completeFloorPlan.AddRange(totalStops);
-
             Dictionary<int, int> waitingTimes = new Dictionary<int, int>();
-
             int elapsedTime = 0;
             int previousFloor = currentFloor;
             int directionChanges = 0;
@@ -41,11 +37,9 @@ namespace ElevatorStrategy
 
                 int travelledFloors = Math.Abs(nextFloor - previousFloor);
 
-                elapsedTime += travelledFloors * SecondsPerFloor;
+                elapsedTime += travelledFloors * SecondsPerFloor + SecondsPerStop;
          
                 waitingTimes[nextFloor] = elapsedTime;
-
-                elapsedTime += SecondsPerStop;
 
                 previousFloor = nextFloor;
                 previousMovementDirection = movementDirection;
@@ -53,14 +47,12 @@ namespace ElevatorStrategy
 
             int totalWaitingTime = waitingTimes.Values.Sum();
 
-            double averageWaitingTime = (double)totalWaitingTime / waitingTimes.Count;
-
             FloorPlanResult floorPlanResult = new FloorPlanResult
             {
                 FloorPlan = totalStops,
                 FullTripTime = elapsedTime,
                 TotalPassengerWaitingTime = totalWaitingTime,
-                AveragePassengerWaitingTime = averageWaitingTime,
+                AveragePassengerWaitingTime = (double)totalWaitingTime / waitingTimes.Count,
                 DirectionChanges = directionChanges,
             };
 
