@@ -7,6 +7,8 @@ namespace ElevatorStrategy
 {
     internal class InsidePriorityStrategy : StrategyBase
     {
+        public string StrategyName { get; } = "Inside Priority Floor Planning Strategy";
+
         public InsidePriorityStrategy(int secondsPerFloor, int secondsPerStop) : base(secondsPerFloor, secondsPerStop) { }
 
         public FloorPlanResult CreatePlan(int currentFloor, Direction initialDirection, IEnumerable<int> hallButtons, IEnumerable<int> cabinButtons)

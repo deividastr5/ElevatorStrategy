@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ElevatorStrategy
 {
-    public class FloorPlanningStrategy : StrategyBase
+    public class FloorPlanningStrategy2 : StrategyBase
     {
-        public string StrategyName { get; } = "Floor Planning Strategy";
+        public string StrategyName { get; } = "Floor Planning Strategy 2";
 
-        public FloorPlanningStrategy(int secondsPerFloor, int secondsPerStop) : base(secondsPerFloor, secondsPerStop) { }
+        public FloorPlanningStrategy2(int secondsPerFloor, int secondsPerStop) : base(secondsPerFloor, secondsPerStop) { }
                    
         public FloorPlanResult CreatePlan(int currentFloor, Direction initialDirection, IEnumerable<int> hallButtons, IEnumerable<int> cabinButtons)
         {
@@ -30,7 +30,6 @@ namespace ElevatorStrategy
                 AveragePassengerWaitingTime = (double)totalWaitingTime / waitingTimes.Count,
                 DirectionChanges = directionChanges,
             };
-
             return floorPlanResult;
         }
         private int[] GetTotalStops(int currentFloor, Direction initialDirection, IEnumerable<int> hallButtons, IEnumerable<int> cabinButtons)

@@ -18,9 +18,9 @@ namespace ElevatorStrategy
             HallButtons = hallButtons;
             CabinButtons = cabinButtons;
         }
-        public void ReceivePlan(FloorPlanResult result)
+        public void ReceivePlan(FloorPlanResult result, string strategyName)
         {        
-            Console.WriteLine("Elevator floor strategy results");
+            Console.WriteLine(strategyName);
             var table = new ConsoleTable("", "Values");
             table.AddRow("Floor plan", string.Join(" -> ", result.FloorPlan));
             table.AddRow("Full trip time (s)", result.FullTripTime);
