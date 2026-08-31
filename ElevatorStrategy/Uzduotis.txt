@@ -1,0 +1,12 @@
+﻿
+Lifto iškvietimo strategija
+
+1. Strategija - liftas pirmiausia vykdo esamų aukštų pasirinkimų eilę lifto viduje, paaskui esamų iškvietimų aukštuose eilę. Strategija - InsidePriorityStrategy.
+
+2. Kadangi lifto pradinis aukštas yra 2, o pirmas paspaudimas yra 7, liftas pirmiausia pakils į 7 aukštą ir praleis liftus einančius pakeliui: 3, 6. Šių keleivių laukimo laikas
+prailgėja, nes jie turi laukti, kol liftas grįš į jų aukštus.
+
+Pasiūlyta strategija - FloorPlanningStrategy. Startavus nuo pradinio aukšto, liftas kyla į viršų ir sustoja proe kiekvieno mygtuko paspaudimo. Taip sutrumpėja laukimo laikas, 
+nes liftas aptarnauja visus aukštus pakeliui.
+
+3. 

@@ -5,16 +5,10 @@ using System.Text;
 
 namespace ElevatorStrategy
 {
-    internal class InsidePriorityStrategy
+    internal class InsidePriorityStrategy : StrategyBase
     {
-        private readonly int SecondsPerFloor;
-        private readonly int SecondsPerStop;
+        public InsidePriorityStrategy(int secondsPerFloor, int secondsPerStop) : base(secondsPerFloor, secondsPerStop) { }
 
-        public InsidePriorityStrategy(int secondsPerFloor, int secondsPerStop)
-        {
-            SecondsPerFloor = secondsPerFloor;
-            SecondsPerStop = secondsPerStop;
-        }
         public FloorPlanResult CreatePlan(int currentFloor, Direction initialDirection, IEnumerable<int> hallButtons, IEnumerable<int> cabinButtons)
         {
             Dictionary<int, int> waitingTimes = new Dictionary<int, int>();
@@ -50,13 +44,7 @@ namespace ElevatorStrategy
         {
             int[] requestedFloors = buttons.Where(floor => floor != currentFloor).Distinct().ToArray();
 
-            int[] sortedFloorsAboveCurrent = requestedFloors.Where(floor => floor > currentFloor).OrderBy(floor => floor).ToArray();
-
-            int[] sortedFloorsBelowCurrent = requestedFloors.Where(floor => floor < currentFloor).OrderByDescending(floor => floor).ToArray();
-
-            int[] totalStops = direction == Direction.Up
-               ? sortedFloorsAboveCurrent.Concat(sortedFloorsBelowCurrent).ToArray()
-               : sortedFloorsBelowCurrent.Concat(sortedFloorsAboveCurrent).ToArray();
+            int[] totalStops = SortStops(requestedFloors, currentFloor, direction);
 
             return totalStops;
         }
@@ -68,30 +56,30 @@ namespace ElevatorStrategy
 
             return nextDirection;
         }
-        private (int previousFloor, int elapsedTime, int directionChanges, Direction? previousDirection) ProcessStops(
-            int[] stops, int startFloor, int elapsedTime, Direction? incomingDirection, Dictionary<int, int> waitingTimes)
-        {
-            int previousFloor = startFloor;
-            Direction? previousDirection = incomingDirection;
-            int directionChanges = 0;
+        //private (int previousFloor, int elapsedTime, int directionChanges, Direction? previousDirection) ProcessStops(
+        //    int[] stops, int startFloor, int elapsedTime, Direction? incomingDirection, Dictionary<int, int> waitingTimes)
+        //{
+        //    int previousFloor = startFloor;
+        //    Direction? previousDirection = incomingDirection;
+        //    int directionChanges = 0;
 
-            foreach (int nextFloor in stops)
-            {
-                Direction movementDirection = nextFloor > previousFloor ? Direction.Up : Direction.Down;
+        //    foreach (int nextFloor in stops)
+        //    {
+        //        Direction movementDirection = nextFloor > previousFloor ? Direction.Up : Direction.Down;
 
-                if (previousDirection.HasValue && previousDirection.Value != movementDirection)
-                    directionChanges++;
+        //        if (previousDirection.HasValue && previousDirection.Value != movementDirection)
+        //            directionChanges++;
 
-                int travelledFloors = Math.Abs(nextFloor - previousFloor);
+        //        int travelledFloors = Math.Abs(nextFloor - previousFloor);
 
-                elapsedTime += travelledFloors * SecondsPerFloor + SecondsPerStop;
+        //        elapsedTime += travelledFloors * SecondsPerFloor + SecondsPerStop;
 
-                waitingTimes[nextFloor] = elapsedTime;
+        //        waitingTimes[nextFloor] = elapsedTime;
 
-                previousFloor = nextFloor;
-                previousDirection = movementDirection;
-            }
-            return (previousFloor, elapsedTime, directionChanges, previousDirection);
-        }
+        //        previousFloor = nextFloor;
+        //        previousDirection = movementDirection;
+        //    }
+        //    return (previousFloor, elapsedTime, directionChanges, previousDirection);
+        //}
     }
 }

@@ -11,7 +11,6 @@ int secondsPerFloor = 1;
 int secondsPerStop = 2;
 
 var elevator = new Elevator(startingFloor, hallButtons, cabinButtons);
-//var elevator2 = new Elevator2(startingFloor, hallButtons, cabinButtons);
 
 FloorPlanningStrategy floorPlanningStrategy = new FloorPlanningStrategy(secondsPerFloor, secondsPerStop);
 InsidePriorityStrategy insidePriorityStrategy = new InsidePriorityStrategy(secondsPerFloor, secondsPerStop);
