@@ -1,14 +1,16 @@
 ﻿
 Lifto iškvietimo strategija
 
-1. Strategija - liftas pirmiausia vykdo esamų aukštų pasirinkimų eilę lifto viduje, paaskui esamų iškvietimų aukštuose eilę. Strategija - InsidePriorityStrategy.
+1. Strategija - liftas pirmiausia vykdo esamų aukštų pasirinkimų eilę lifto viduje, paskui esamų iškvietimų aukštuose eilę. Strategija - insidePriorityNoSortStrategy ir insidePriorityStrategy.
 
-2. Kadangi lifto pradinis aukštas yra 2, o pirmas paspaudimas yra 7, liftas pirmiausia pakils į 7 aukštą ir praleis liftus einančius pakeliui: 3, 6. Šių keleivių laukimo laikas
+2.Jei liftas stoja pagal paspaustus mygtukus, kaip strategijoje insidePriorityNoSortStrategy, turime didesnį krypčių keitimo kiekį.
+Pasiūlyta strategija - insidePriorityStrategy, kuri sugrupuoja paspaudimus pagal kryptį, taip sumažinant krypčių keitimo kiekį.Tuo pačiu autrumpėja laukimo laikas.
+Bet kadangi lifto pradinis aukštas yra 2, o pirmas paspaudimas yra 7, liftas pirmiausia pakils į 7 aukštą ir praleis liftus einančius pakeliui: 3, 6. Šių keleivių laukimo laikas
 prailgėja, nes jie turi laukti, kol liftas grįš į jų aukštus.
 
-Pasiūlyta strategija - FloorPlanningStrategy. Startavus nuo pradinio aukšto, liftas kyla į viršų ir sustoja prie kiekvieno mygtuko paspaudimo. Taip sutrumpėja laukimo laikas, 
-nes liftas aptarnauja visus aukštus pakeliui.
+3. Pasiūlyta strategija - floorPlanningStrategy. Startavus nuo pradinio aukšto, liftas kyla į viršų ir sustoja prie kiekvieno mygtuko paspaudimo. Taip sutrumpėja
+vidutinis laukimo laikas, nes liftas aptarnauja visus aukštus pakeliui.
 
-3. Strategija - FloorPlanningStrategy2. Ši strategija veikia panašiai kaip FloorPlanningStrategy, tik pakeičiama pradinė lifto kryptis. Liftas pirmiausiai nusileidžia
+Strategija - floorPlanningStrategy2. Ši strategija veikia panašiai kaip floorPlanningStrategy, tik pakeičiama pradinė lifto kryptis. Liftas pirmiausiai nusileidžia
 į žemiausią, prie pat esantį aukštą, taip išvengdami pilno kelio grįžimo iki jo.
-Krypčių kiekis visose strategijose yra vienodas, tačiau FloorPlanningStrategy2 sumažina laukimo laiką.
+FloorPlanningStrategy2 sumažina laukimo laiką.

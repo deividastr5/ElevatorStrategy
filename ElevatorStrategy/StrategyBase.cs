@@ -9,11 +9,12 @@ namespace ElevatorStrategy
     {
         protected int SecondsPerFloor { get; }
         protected int SecondsPerStop { get; }
-
-        protected StrategyBase(int secondsPerFloor, int secondsPerStop)
+        public string StrategyName { get; }
+        protected StrategyBase(int secondsPerFloor, int secondsPerStop, string strategyName)
         {
             SecondsPerFloor = secondsPerFloor;
             SecondsPerStop = secondsPerStop;
+            StrategyName = strategyName;
         }
         /// <summary>
         /// Processes the stops for the elevator, calculating the elapsed time, direction changes, and waiting times for each stop.

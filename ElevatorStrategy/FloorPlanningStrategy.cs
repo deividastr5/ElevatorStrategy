@@ -7,9 +7,7 @@ namespace ElevatorStrategy
 {
     public class FloorPlanningStrategy : StrategyBase
     {
-        public string StrategyName { get; } = "Floor Planning Strategy";
-
-        public FloorPlanningStrategy(int secondsPerFloor, int secondsPerStop) : base(secondsPerFloor, secondsPerStop) { }
+        public FloorPlanningStrategy(int secondsPerFloor, int secondsPerStop, string strategyName) : base(secondsPerFloor, secondsPerStop, strategyName) { }
                    
         public FloorPlanResult CreatePlan(int currentFloor, Direction initialDirection, IEnumerable<int> hallButtons, IEnumerable<int> cabinButtons)
         {

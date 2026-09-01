@@ -12,14 +12,18 @@ int secondsPerStop = 2;
 
 var elevator = new Elevator(startingFloor, hallButtons, cabinButtons);
 
-InsidePriorityStrategy insidePriorityStrategy = new InsidePriorityStrategy(secondsPerFloor, secondsPerStop);
-FloorPlanningStrategy floorPlanningStrategy = new FloorPlanningStrategy(secondsPerFloor, secondsPerStop);
-FloorPlanningStrategy2 floorPlanningStrategy2 = new FloorPlanningStrategy2(secondsPerFloor, secondsPerStop);
+InsidePriorityStrategy insidePriorityNoSortStrategy = new InsidePriorityStrategy(secondsPerFloor, secondsPerStop, "Inside Priority Floor Planning Strategy No Sort");
+InsidePriorityStrategy insidePriorityStrategy = new InsidePriorityStrategy(secondsPerFloor, secondsPerStop, "Inside Priority Floor Planning Strategy");
+FloorPlanningStrategy floorPlanningStrategy = new FloorPlanningStrategy(secondsPerFloor, secondsPerStop, "Floor Planning Strategy");
+FloorPlanningStrategy floorPlanningStrategy2 = new FloorPlanningStrategy(secondsPerFloor, secondsPerStop, "Floor Planning Strategy2");
 
-FloorPlanResult resultInside = insidePriorityStrategy.CreatePlan(elevator.CurrentFloor, Direction.Up, elevator.HallButtons, elevator.CabinButtons);
+
+FloorPlanResult resultInsideNoSort = insidePriorityNoSortStrategy.CreatePlan(elevator.CurrentFloor, Direction.Up, elevator.HallButtons, elevator.CabinButtons, false);
+FloorPlanResult resultInside = insidePriorityStrategy.CreatePlan(elevator.CurrentFloor, Direction.Up, elevator.HallButtons, elevator.CabinButtons, true);
 FloorPlanResult result = floorPlanningStrategy.CreatePlan(elevator.CurrentFloor, Direction.Up, elevator.HallButtons, elevator.CabinButtons);
 FloorPlanResult result2 = floorPlanningStrategy2.CreatePlan(elevator.CurrentFloor, Direction.Down, elevator.HallButtons, elevator.CabinButtons);
 
+elevator.ReceivePlan(resultInsideNoSort, insidePriorityNoSortStrategy.StrategyName);
 elevator.ReceivePlan(resultInside, insidePriorityStrategy.StrategyName);
 elevator.ReceivePlan(result, floorPlanningStrategy.StrategyName);
 elevator.ReceivePlan(result2, floorPlanningStrategy2.StrategyName);
